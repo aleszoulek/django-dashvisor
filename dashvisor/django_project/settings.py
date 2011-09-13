@@ -141,3 +141,6 @@ LOGGING = {
         },
     }
 }
+
+from os.path import join, dirname
+DASHVISOR_CONFIG_FILE = join(dirname(__file__), 'servers.conf')

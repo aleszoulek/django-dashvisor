@@ -5,6 +5,6 @@ from dashvisor.backends import backend
 def dashboard(request):
     return render_to_response(
         'dashvisor/dashboard.html',
-        {'servers': backend.servers()}
+        {'servers': backend.servers}
     )
 
