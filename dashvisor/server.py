@@ -18,3 +18,7 @@ class Server(object):
 
     def start(self, name):
         return self.connection.supervisor.startProcess(name)
+
+    def restart(self, name):
+        self.stop(name)
+        self.start(name)
