@@ -1,12 +1,66 @@
+<html>
+<head>
+    <title>Dashvisor</title>
+    <style>
+    body{
+        background: #f1f1f1;
+        margin: 0;
+        padding: 0;
+    }
+    h1{
+        color: #f1f1f1;
+        background: #1f1f1f;
+    }
+    .machine td{
+        font-size: 12pt;
+        font-weight: bold;
+        border-top: 1px solid black;
+    }
+    table{
+        width: 500pt;
+        margin-left: 40pt;
+    }
+    th{
+        background: #1f1f1f;
+        color: #f1f1f1;
+    }
+    a{
+        color: #f11f11;
+    }
+    td.RUNNING{
+        background: #1f911f;
+        font-weight: bold;
+        color: #f1f1f1;
+    }
+    td.STOPPED{
+        background: #9f111f;
+        font-weight: bold;
+        color: #f1f1f1;
+    }
+    </style>
+</head>
+
+<body>
+<h1>Dashvisor</h1>
+    <table>
+        <!--
+        <tr>
+            <th>Name</th>
+            <th>State</th>
+            <th>Details</th>
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Restart</th>
+        </tr>
+        -->
 {% for server in servers.values %}
 
-    <h2>{{ server.name }}</h2>
+    <tr class="machine"><td colspan="6">{{ server.name }}</td></tr>
 
-    <table border=1>
     {% for name, info in server.status.items %}
         <tr>
             <td>{{name}}</td>
-            <td>{{info.statename}}</td>
+            <td class="{{info.statename}}">{{info.statename|lower}}</td>
             <td>{{info.description}}</td>
             {% ifequal info.state constants.running %}
                 <td>start</td>
@@ -19,6 +73,8 @@
             {% endifequal %} <!-- TODO URL REVERSE -->
         </tr>
     {% endfor %}
-    </table>
 
 {% endfor %}
+    </table>
+</body>
+</html>
