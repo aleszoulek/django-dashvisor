@@ -8,15 +8,15 @@
             <td>{{name}}</td>
             <td>{{info.statename}}</td>
             <td>{{info.description}}</td>
-            <td>{% ifnotequal info.state constants.running %}
-                <a href="/control/{{server.name}}/{{name}}/start/">start</a>
-            {% endifnotequal %}</td> <!-- TODO URL REVERSE -->
-            <td>{% ifequal info.state constants.running %}
-                <a href="/control/{{server.name}}/{{name}}/stop/">stop</a>
-            {% endifequal %}</td> <!-- TODO URL REVERSE -->
-            <td>{% ifequal info.state constants.running %}
-                <a href="/control/{{server.name}}/{{name}}/restart/">restart</a>
-            {% endifequal %}</td> <!-- TODO URL REVERSE -->
+            {% ifequal info.state constants.running %}
+                <td>start</td>
+                <td><a href="/control/{{server.name}}/{{name}}/stop/">stop</a></td>
+                <td><a href="/control/{{server.name}}/{{name}}/restart/">restart</a></td>
+            {% else %}
+                <td><a href="/control/{{server.name}}/{{name}}/start/">start</a></td>
+                <td>stop</td>
+                <td>restart</td>
+            {% endifequal %} <!-- TODO URL REVERSE -->
         </tr>
     {% endfor %}
     </table>
