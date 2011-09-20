@@ -5,13 +5,18 @@
     <table border=1>
     {% for name, info in server.status.items %}
         <tr>
-            <td>{{info.state}}</td>
             <td>{{name}}</td>
             <td>{{info.statename}}</td>
             <td>{{info.description}}</td>
-            <td><a href="/control/{{server.name}}/{{name}}/stop/">stop</a></td> <!-- TODO URL REVERSE -->
-            <td><a href="/control/{{server.name}}/{{name}}/start/">start</a></td> <!-- TODO URL REVERSE -->
-            <td><a href="/control/{{server.name}}/{{name}}/restart/">restart</a></td> <!-- TODO URL REVERSE -->
+            <td>{% ifnotequal info.state constants.running %}
+                <a href="/control/{{server.name}}/{{name}}/start/">start</a>
+            {% endifnotequal %}</td> <!-- TODO URL REVERSE -->
+            <td>{% ifequal info.state constants.running %}
+                <a href="/control/{{server.name}}/{{name}}/stop/">stop</a>
+            {% endifequal %}</td> <!-- TODO URL REVERSE -->
+            <td>{% ifequal info.state constants.running %}
+                <a href="/control/{{server.name}}/{{name}}/restart/">restart</a>
+            {% endifequal %}</td> <!-- TODO URL REVERSE -->
         </tr>
     {% endfor %}
     </table>

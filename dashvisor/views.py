@@ -9,6 +9,10 @@ def dashboard(request):
         'dashvisor/dashboard.html',
         {
             'servers': backend.servers,
+            'constants': {
+                'stopped': 0,
+                'running': 20,
+            },
         }
     )
 
