@@ -1,3 +1,15 @@
 {% for server in servers %}
-{{server}}
+
+    <h2>{{ server.name }}</h2>
+
+    <table>
+    {% for process in server.status %}
+        <tr>
+            <td>{{process.group}}:{{process.name}}</td>
+            <td>{{process.statename}}</td>
+            <td>{{process.description}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
 {% endfor %}
