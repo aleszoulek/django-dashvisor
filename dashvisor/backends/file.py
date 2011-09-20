@@ -6,10 +6,15 @@ from dashvisor.server import Server
 
 class Backend(object):
     def __init__(self):
-        self.servers = []
+        self.servers = {}
         fp = open(settings.DASHVISOR_CONFIG_FILE)
         for line in fp.xreadlines():
-            self.servers.append(Server(line.strip()))
+            server = Server(line.strip())
+            self.servers[server.name] = server
         fp.close()
+
+    def refresh(self):
+        for s in self.servers.values():
+            s.refresh()
 
 

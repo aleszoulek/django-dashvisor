@@ -1,13 +1,15 @@
-{% for server in servers %}
+{% for server in servers.values %}
 
     <h2>{{ server.name }}</h2>
 
     <table>
-    {% for process in server.status %}
+    {% for name, info in server.status.items %}
         <tr>
-            <td>{{process.group}}:{{process.name}}</td>
-            <td>{{process.statename}}</td>
-            <td>{{process.description}}</td>
+            <td>{{name}}</td>
+            <td>{{info.statename}}</td>
+            <td>{{info.description}}</td>
+            <td><a href="/control/{{server.name}}/{{name}}/stop/">stop</a></td> <!-- TODO URL REVERSE -->
+            <td><a href="/control/{{server.name}}/{{name}}/start/">start</a></td> <!-- TODO URL REVERSE -->
         </tr>
     {% endfor %}
     </table>
