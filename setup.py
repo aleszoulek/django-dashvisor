@@ -32,5 +32,6 @@ setup(
         'Topic :: Utilities',
     ],
     include_package_data=True,
+    test_suite='test_dashvisor.run_tests.run_all',
 )
 
