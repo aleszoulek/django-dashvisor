@@ -1,0 +1,4 @@
+-r requirements.txt
+
+nose>=0.11.3
+coverage>=3.3.1
