@@ -18,3 +18,14 @@ class TestFileBackend(SupervisorTestCase):
             self.backend.servers['localhost'].status,
             {}
         )
+
+    def test_backed_refresh(self):
+        self.backend.refresh()
+        tools.assert_equals(
+            self.backend.servers['localhost'].status.keys(),
+            ['a:x', 'a:y', 'b:y', 'b:z', 'tail-everything:tail-everything']
+        )
+        tools.assert_equals(
+            self.backend.servers['127.0.0.1'].status.keys(),
+            ['j:j', 'k:k', 'l:l']
+        )
