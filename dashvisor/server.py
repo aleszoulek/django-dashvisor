@@ -32,6 +32,9 @@ class Server(object):
             print e, e.faultString
             raise
 
+    def start_all(self):
+        return self.connection.supervisor.startAllProcesses()
+
     def restart(self, name):
         self.stop(name)
         return self.start(name)
