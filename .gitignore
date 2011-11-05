@@ -1,2 +1,2 @@
 dashvisor/django_project/servers.conf
-supervisor.log
+supervisord.log
