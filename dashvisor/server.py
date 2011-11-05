@@ -20,7 +20,6 @@ class Server(object):
         except Fault, e:
             if e.faultString.startswith('NOT_RUNNING'):
                 return False
-            print e, e.faultString
             raise
 
     def start(self, name):
@@ -29,7 +28,6 @@ class Server(object):
         except Fault, e:
             if e.faultString.startswith('ALREADY_STARTED'):
                 return False
-            print e, e.faultString
             raise
 
     def start_all(self):

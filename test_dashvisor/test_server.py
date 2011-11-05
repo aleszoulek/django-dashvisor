@@ -10,6 +10,9 @@ class TestServer(SupervisorTestCase):
     def setUp(self):
         self.server = backend.servers['localhost']
         self.server.start_all()
+        self.server.refresh()
+        #import time
+        #time.sleep(2)
 
     def _assert_stopped(self, name):
         self._assert_state(name, 0)
@@ -24,10 +27,6 @@ class TestServer(SupervisorTestCase):
         )
 
     def test_refresh(self):
-        tools.assert_equals(
-            self.server.status,
-            {}
-        )
         self.server.refresh()
         tools.assert_equals(
             self.server.status.keys(),
@@ -41,12 +40,51 @@ class TestServer(SupervisorTestCase):
         self.server.refresh()
         self._assert_stopped('a:x')
 
+    def test_stop_twice(self):
+        self._assert_running('a:x')
+        self.server.stop('a:x')
+        self.server.refresh()
+        self._assert_stopped('a:x')
+        self.server.stop('a:x')
+        self.server.refresh()
+        self._assert_stopped('a:x')
+
     def test_start(self):
         self.server.stop('a:x')
         self.server.refresh()
         self._assert_stopped('a:x')
         self.server.start('a:x')
         self._assert_stopped('a:x')
+        self.server.refresh()
+        self._assert_running('a:x')
+
+    def test_start_twice(self):
+        self._assert_running('a:x')
+        self.server.start('a:x')
+        self.server.refresh()
+        self._assert_running('a:x')
+
+    def test_start_all(self):
+        self.server.stop('a:x')
+        self.server.stop('a:y')
+        self.server.refresh()
+        self._assert_stopped('a:x')
+        self._assert_stopped('a:y')
+        self.server.start_all()
+        self.server.refresh()
+        self._assert_running('a:x')
+        self._assert_running('a:y')
+
+    def test_restart_running(self):
+        self.server.restart('a:x')
+        self.server.refresh()
+        self._assert_running('a:x')
+
+    def test_restart_stopped(self):
+        self.server.stop('a:x')
+        self.server.refresh()
+        self._assert_stopped('a:x')
+        self.server.restart('a:x')
         self.server.refresh()
         self._assert_running('a:x')
 
