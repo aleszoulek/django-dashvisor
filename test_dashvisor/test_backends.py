@@ -14,3 +14,7 @@ class TestFileBackend(SupervisorTestCase):
             set(self.backend.servers.keys()),
             set(['localhost', '127.0.0.1'])
         )
+        tools.assert_equals(
+            self.backend.servers['localhost'].status,
+            {}
+        )

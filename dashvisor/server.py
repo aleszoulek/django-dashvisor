@@ -9,6 +9,7 @@ class Server(object):
     def __init__(self, connection_string):
         self.name = urlparse(connection_string).hostname
         self.connection = ServerProxy(connection_string)
+        self.status = SortedDict()
 
     def refresh(self):
         self.status = SortedDict(("%s:%s" % (i['group'], i['name']), i) for i in self.connection.supervisor.getAllProcessInfo())
