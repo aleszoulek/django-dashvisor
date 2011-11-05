@@ -17,8 +17,8 @@ class TestServer(SupervisorTestCase):
         )
         self.server.refresh()
         tools.assert_equals(
-            self.servers.status.keys(),
-            []
+            self.server.status.keys(),
+            ['a:x', 'a:y', 'b:y', 'b:z', 'tail-everything:tail-everything']
         )
 
 
