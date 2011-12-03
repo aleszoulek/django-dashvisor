@@ -80,12 +80,15 @@
              {% for server in servers.values %}
                 refresh('{{ server.id }}');
              {% endfor %}
-         }
+         };
+         function on_load(){
+             refresh_all();
+         };
 
     </script>
 </head>
 
-<body onLoad='refresh_all()'>
+<body onLoad='on_load()'>
     <h1>Dashvisor</h1>
 
     <div>
