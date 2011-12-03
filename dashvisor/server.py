@@ -14,6 +14,11 @@ class Server(object):
 
     def refresh(self):
         self.status = SortedDict(("%s:%s" % (i['group'], i['name']), i) for i in self.connection.supervisor.getAllProcessInfo())
+        for key, program in self.status.items():
+            program['id'] = key
+            program['human_name'] = program['name']
+            if program['name'] != program['group']:
+                program['human_name'] = "%s:%s" % (program['group'], program['name'])
 
     def stop(self, name):
         try:

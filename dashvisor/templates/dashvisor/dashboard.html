@@ -59,7 +59,7 @@
             for(var i=0; i<status.length; i++){
                 var program = status[i];
                 var row = "";
-                row += "<td width='30%'>"+program["name"]+"</td>";
+                row += "<td width='30%'>"+program["human_name"]+"</td>";
                 row += "<td class='"+program['statename']+"'>"+program["statename"]+"</td>";
                 row += "<td>"+program["description"]+"</td>";
                 if (program['state'] == "{{ constants.running }}"){
