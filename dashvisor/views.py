@@ -20,7 +20,6 @@ def dashboard(request):
     )
 
 def control(request, server, process, action):
-    print server, process, action
     if action not in ('start', 'stop', 'restart'):
         raise Http404
 
@@ -41,5 +40,4 @@ def query(request):
         program = request.GET['program']
         getattr(server, action)(program)
 
-    print response_dict
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')
