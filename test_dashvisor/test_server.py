@@ -8,7 +8,7 @@ from test_dashvisor.cases import SupervisorTestCase
 
 class TestServer(SupervisorTestCase):
     def setUp(self):
-        self.server = backend.servers['localhost']
+        self.server = backend.servers['0'] # localhost is first
         self.server.start_all()
         self.server.refresh()
         #import time
