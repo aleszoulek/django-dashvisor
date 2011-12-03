@@ -64,10 +64,10 @@
                 row += "<td>"+program["description"]+"</td>";
                 if (program['state'] == "{{ constants.running }}"){
                     row += "<td>start</td>";
-                    row += "<td><a href='/control/"+id+"/"+program['name']+"/stop/'>stop</a></td>";
-                    row += "<td><a href='/control/"+id+"/"+program['name']+"/restart/'>restart</a></td>";
+                    row += "<td><a href='#' onClick=control_program("+id+",'"+program['id']+"','stop')>stop</a></td>";
+                    row += "<td><a href='#' onClick=control_program("+id+",'"+program['id']+"','restart')>restart</a></td>";
                 } else {
-                    row += "<td><a href='/control/"+id+"/"+program['name']+"/start/'>start</a></td>";
+                    row += "<td><a href='#' onClick=control_program("+id+",'"+program['id']+"','start')>start</a></td>";
                     row += "<td>stop</td>";
                     row += "<td>restart</td>";
                 }
@@ -75,6 +75,15 @@
             }
             server_dashboard.empty();
             server_dashboard.append(table);
+         };
+         function control_program(server_id, program_id, command){
+            $.ajax({
+                url: "{{ query_url }}",
+                data: {'server': server_id, 'action': command, 'program': program_id},
+                success: function (data) { refresh(server_id); },
+                error: function(){ alert('fail'); },
+                dataType: 'json',
+            });
          };
          function refresh_all(){
              {% for server in servers.values %}

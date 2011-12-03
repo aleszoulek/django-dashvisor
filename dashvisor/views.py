@@ -37,6 +37,9 @@ def query(request):
         response_dict['status'] = server.status.values()
         response_dict['status'].sort(key=lambda x: (x['group'], x['name']))
         response_dict['server'] = {'name': server.name, 'id': id}
+    if action in ('start', 'stop', 'restart'):
+        program = request.GET['program']
+        getattr(server, action)(program)
 
     print response_dict
     return HttpResponse(simplejson.dumps(response_dict), mimetype='application/javascript')
